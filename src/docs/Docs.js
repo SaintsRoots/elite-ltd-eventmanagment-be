@@ -309,19 +309,181 @@ const options = {
         },
       },
     },
-  },
 
-  components: {
-    securitySchemes: {
-      bearerAuth: {
-        type: "http",
-        scheme: "bearer",
-        bearerFormat: "JWT",
-        in: "header",
-        name: "Authorization",
+
+    
+
+ // Events paths
+ "/api/v1/events": {
+  get: {
+    tags: ["Events"],
+    summary: "Get All Events",
+    description: "Retrieve all events from the database",
+    responses: {
+      200: {
+        description: "Events retrieved successfully",
+      },
+      500: {
+        description: "Internal Server Error",
       },
     },
   },
+  post: {
+    tags: ["Events"],
+    summary: "Create Event",
+    description: "Create a new event in the database",
+    requestBody: {
+      content: {
+        "multipart/form-data": {
+          schema: {
+            type: "object",
+            properties: {
+              title: { type: "string" },
+              description: { type: "string" },
+              location: { type: "string" },
+              date_schedule: { type: "string", format: "date-time" },
+              price: { type: "number" },
+              time: { type: "string" },
+              image_url: {
+                type: "string",
+                format: "binary",
+                description: "Image file for the event"
+              },
+            },
+          },
+        },
+      },
+      required: true,
+    },
+    responses: {
+      201: {
+        description: "Event created successfully",
+      },
+      400: {
+        description: "Bad Request",
+      },
+      500: {
+        description: "Internal Server Error",
+      },
+    },
+  },
+},
+"/api/v1/events/{id}": {
+  get: {
+    tags: ["Events"],
+    summary: "Get Event By ID",
+    description: "Retrieve a single event by its ID",
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: {
+          type: "string",
+        },
+      },
+    ],
+    responses: {
+      200: {
+        description: "Event retrieved successfully",
+      },
+      404: {
+        description: "Event not found",
+      },
+      500: {
+        description: "Internal Server Error",
+      },
+    },
+  },
+  put: {
+    tags: ["Events"],
+    summary: "Update Event",
+    description: "Update details of an existing event",
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: {
+          type: "string",
+        },
+      },
+    ],
+    requestBody: {
+      content: {
+        "multipart/form-data": {
+          schema: {
+            type: "object",
+            properties: {
+              title: { type: "string" },
+              description: { type: "string" },
+              location: { type: "string" },
+              date_schedule: { type: "string", format: "date-time" },
+              price: { type: "number" },
+              time: { type: "string" },
+              image_url: {
+                type: "string",
+                format: "binary",
+                description: "Image file for the event"
+              },
+            },
+          },
+        },
+      },
+      required: true,
+    },
+    responses: {
+      200: {
+        description: "Event updated successfully",
+      },
+      400: {
+        description: "Bad Request",
+      },
+      404: {
+        description: "Event not found",
+      },
+      500: {
+        description: "Internal Server Error",
+      },
+    },
+  },
+  delete: {
+    tags: ["Events"],
+    summary: "Delete Event",
+    description: "Delete an event by ID",
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: {
+          type: "string",
+        },
+      },
+    ],
+    responses: {
+      200: {
+        description: "Event deleted successfully",
+      },
+      404: {
+        description: "Event not found",
+      },
+      500: {
+        description: "Internal Server Error",
+      },
+    },
+  },
+},
+},
+components: {
+securitySchemes: {
+  bearerAuth: {
+    type: "http",
+    scheme: "bearer",
+    bearerFormat: "JWT",
+  },
+},
+},
 };
 
 docrouter.use("/", serve, setup(options));

@@ -26,7 +26,7 @@ export const createUser = async (userData, file) => {
     name: userData.name,
     email: userData.email,
     password: hashedPass,
-    img: result?.secure_url,
+    profile: result?.secure_url,
   });
 };
 
@@ -42,7 +42,7 @@ export const updateUserById = async (id, userData, file) => {
     name: userData.name,
     email: userData.email,
     password: hashedPass,
-    img: result?.secure_url,
+    profile: result?.secure_url,
   });
 };
 
@@ -80,7 +80,7 @@ export const forgotPasswordService = async (userEmail) => {
       code: resetCode,
       user: user._id,
     });
-    const link = `https://hovastore-support-be.onrender.com/api/v1/users/reset-password`;
+    const link = `https://elite-ltd-eventmanagment-be.onrender.com/api/v1/users/reset-password`;
     sendResetEmail(user.email, user.name, link, resetCode);
 };
 
