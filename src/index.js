@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
   res.status(200).json({
     status: "success",
     author: "John Muhoza",
-    message: "Welcome to the ELITE LTD Event Management API",
+    message: "Welcome to the ETITE LTD Event Management API",
   });
 });
 
