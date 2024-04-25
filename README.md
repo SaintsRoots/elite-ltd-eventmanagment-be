@@ -23,8 +23,8 @@ Ensure you have the following installed:
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/SaintsRoots/elite-ltd-eventmanagment-be.git
-   cd elite-ltd-eventmanagment-be
+   git clone https://github.com/muhozajohn/etite-ltd-eventmanagment-be.git
+   cd etite-ltd-eventmanagment-be
    ```
 
 2. **Install dependencies**
