@@ -54,7 +54,7 @@ Ensure you have the following installed:
 
 Here is a brief overview of the API endpoints included in this backend:
 
-https://elite-ltd-eventmanagment-be.onrender.com/api/v1/docs/
+https://etite-ltd-eventmanagment-be.onrender.com/api/v1/docs/
 
 
 ## Contributing
