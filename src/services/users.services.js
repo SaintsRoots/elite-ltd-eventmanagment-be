@@ -80,7 +80,7 @@ export const forgotPasswordService = async (userEmail) => {
       code: resetCode,
       user: user._id,
     });
-    const link = `https://elite-ltd-eventmanagment-be.onrender.com/api/v1/users/reset-password`;
+    const link = `https://etite-ltd-eventmanagment-be.onrender.com/api/v1/users/reset-password`;
     sendResetEmail(user.email, user.name, link, resetCode);
 };
 
