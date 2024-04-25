@@ -6,7 +6,6 @@ const bookingSchema = new mongoose.Schema(
         event_id: {
             type: mongoose.Schema.ObjectId,
             ref: "events",
-            required: true,
         },
         user_id: {
             type: mongoose.Schema.ObjectId,
@@ -14,14 +13,15 @@ const bookingSchema = new mongoose.Schema(
             required: true,
         },
         number_of_tickets: {
-            type: String,
+            type: Number,
         },
         status: {
             type: String,
-            required: true,
+            default: "pending",
+            required: true,  
         },
         total_price: {
-            type: String,
+            type: Number,
         },
     },
     { timestamps: true }
