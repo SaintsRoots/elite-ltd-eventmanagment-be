@@ -11,8 +11,8 @@ export const createEvent = async (req, res) => {
         });
     }
     try {
-        const { name } = req.body;
-        const categoryExist = await Event.findOne({ name: name });
+        const { title } = req.body;
+        const categoryExist = await Event.findOne({ title: title });
 
         if (categoryExist) {
             return res.status(403).json({

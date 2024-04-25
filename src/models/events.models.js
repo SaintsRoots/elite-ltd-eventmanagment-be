@@ -19,13 +19,13 @@ const eventSchema = new mongoose.Schema(
             required: true,
         },
         capacity: {
-            type: String,
+            type: Number,
         },
         available_tickets: {
-            type: String,
+            type: Number,
         },
         price: {
-            type: String,
+            type: Number,
         },
         time: {
             type: String,
@@ -33,6 +33,10 @@ const eventSchema = new mongoose.Schema(
         image_url: {
             type: String,
         },
+        bookings: [{
+            type: mongoose.Schema.ObjectId,
+            ref: "bookings",
+        }],
         user_id: {
             type: mongoose.Schema.ObjectId,
             ref: "users",
