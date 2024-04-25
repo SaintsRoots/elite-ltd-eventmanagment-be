@@ -6,9 +6,9 @@ const docrouter = express.Router();
 const options = {
   openapi: "3.0.1",
   info: {
-    title: "Welcome to the ELITE LTD Event Management API",
+    title: "Welcome to the ETITE LTD Event Management API",
     version: "1.0.0",
-    description: "Documentation for ELITE LTD Event Management API.",
+    description: "Documentation for ETITE LTD Event Management API.",
   },
   basePath: "/",
   security: [
