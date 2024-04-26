@@ -34,7 +34,7 @@ export const updateEvent = async (id, eventData, file, user) => {
 
     return await Event.findByIdAndUpdate(id, eventData, {
         title, description, location, available_tickets, date_schedule, price, time,
-        image_url: result?.url,
+        image_url: result?.secure_url,
         user_id: user
     });
 };
