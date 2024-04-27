@@ -27,7 +27,11 @@ const options = {
     },
     {
       name: "Booking",
-      description: "Operations related to Bookings's Article entities",
+      description: "Operations related to Bookings's Tickects entities",
+    },
+    {
+      name: "Contact",
+      description: "Operations related to Contact's  entities",
     }
   ],
   paths: {
@@ -622,6 +626,155 @@ const options = {
           },
           404: {
             description: "Booking not found",
+          },
+          500: {
+            description: "Internal Server Error",
+          },
+        },
+      },
+    },
+
+
+    // Contact paths
+    "/api/v1/contact": {
+      get: {
+        tags: ["Contact"],
+        summary: "Get All Contact",
+        description: "Retrieve all contact from the database",
+        responses: {
+          200: {
+            description: "ontact retrieved successfully",
+          },
+          500: {
+            description: "Internal Server Error",
+          },
+        },
+      },
+      post: {
+        tags: ["Contact"],
+        summary: "Create Contact",
+        description: "Create a new Contact in the database",
+        requestBody: {
+          content: {
+            "multipart/form-data": {
+              schema: {
+                type: "object",
+                properties: {
+                  name: { type: "string" },
+                  subject: { type: "string" },
+                  email: { type: "string" },
+                  message: { type: "string", },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          201: {
+            description: "Contact created successfully",
+          },
+          400: {
+            description: "Bad Request",
+          },
+          500: {
+            description: "Internal Server Error",
+          },
+        },
+      },
+    },
+    "/api/v1/contact/{id}": {
+      get: {
+        tags: ["Contact"],
+        summary: "Get Event By ID",
+        description: "Retrieve a single event by its ID",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          200: {
+            description: "Contact retrieved successfully",
+          },
+          404: {
+            description: "Contact not found",
+          },
+          500: {
+            description: "Internal Server Error",
+          },
+        },
+      },
+      put: {
+        tags: ["Contact"],
+        summary: "Update Contact",
+        description: "Update details of an existing event",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        requestBody: {
+          content: {
+            "multipart/form-data": {
+              schema: {
+                type: "object",
+                properties: {
+                  name: { type: "string" },
+                  subject: { type: "string" },
+                  email: { type: "string" },
+                  message: { type: "string", },
+                },
+              },
+            },
+          },
+          required: true,
+        },
+        responses: {
+          200: {
+            description: "Contact updated successfully",
+          },
+          400: {
+            description: "Bad Request",
+          },
+          404: {
+            description: "Contact not found",
+          },
+          500: {
+            description: "Internal Server Error",
+          },
+        },
+      },
+      delete: {
+        tags: ["Contact"],
+        summary: "Delete Contact",
+        description: "Delete an Contact by ID",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            schema: {
+              type: "string",
+            },
+          },
+        ],
+        responses: {
+          200: {
+            description: "Contact deleted successfully",
+          },
+          404: {
+            description: "Contact not found",
           },
           500: {
             description: "Internal Server Error",
