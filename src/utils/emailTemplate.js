@@ -32,3 +32,52 @@ export const sendResetEmail = (email, name, link, resetCode) => {
 
     sendMail(emailTemplate);
 };
+
+
+// Function to send a notification to the EventHub Team
+export const notifyUserOfNewEvent = (email, event) => {
+    const { title, description, date_schedule, location, price, image_url } = event;
+    const formatDate = (date) => {
+      return new Date(date).toLocaleDateString(undefined, {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+    };
+
+    const emailTemplate = {
+      emailTo: email,
+      subject: `Join Us for an Exciting Event: ${title}!`,
+      message: `
+      <div style="font-family: Arial, sans-serif; color: #333;">
+        <h1 style="color: #0056b3;">${title}</h1>
+        <p>Hello,</p>
+        <p>We're excited to invite you to our upcoming event, <strong>${title}</strong>, which will be held on <strong>${formatDate(date_schedule)}</strong> at <strong>${location}</strong>.</p>
+        
+        <center>
+          <img src="${image_url}" alt="${title}" style="width: 80%; max-width: 500px; height: auto; border: 0; margin: 20px 0;">
+        </center>
+  
+        <p>${description}</p>
+        
+        <h2>Event Details:</h2>
+        <ul>
+          <li><strong>Date:</strong> ${formatDate(date_schedule)}</li>
+          <li><strong>Location:</strong> ${location}</li>
+          <li><strong>Price:</strong> $${price}</li>
+        </ul>
+        
+        <p>Don't miss this opportunity to enjoy what promises to be a memorable event. Seats are limited, so be sure to secure your spot soon!</p>
+        
+        <p>For more information and to purchase tickets, please visit our website or contact us directly.</p>
+        
+        <p>We look forward to welcoming you to <strong>${title}</strong>!</p>
+        
+        <p>Best regards,</p>
+        <p>The Events Team</p>
+      </div>
+      `,
+    };
+  
+    sendMail(emailTemplate)
+  };
+
+  

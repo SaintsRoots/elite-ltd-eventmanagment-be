@@ -1,6 +1,7 @@
 import * as EventsServices from "../services/events.services";
 import { validateCreateEvent, validateUpdateEvent } from "../validations/event.validation";
 import Event from "../models/events.models";
+import { notifyUserOfNewEvent } from "../utils/emailTemplate"
 // create a new Event
 
 export const createEvent = async (req, res) => {
@@ -11,7 +12,7 @@ export const createEvent = async (req, res) => {
         });
     }
     try {
-        const { title } = req.body;
+        const { title, description, date_schedule, location, price } = value;
         const categoryExist = await Event.findOne({ title: title });
 
         if (categoryExist) {
@@ -25,6 +26,22 @@ export const createEvent = async (req, res) => {
             req.file,
             req.User._id
         );
+
+        // sending email notification to subscribers
+        const eventDetails = {
+            title,
+            description,
+            date_schedule,
+            location,
+            price,
+            image_url: req.file
+        };
+
+        const subscribers = await EventsServices.getSubscribers();
+        subscribers.forEach(subscriber => {
+            notifyUserOfNewEvent(subscriber.email, eventDetails);
+        });
+
         return res.status(201).json({
             status: "201",
             message: "Event created successfully",
@@ -68,7 +85,7 @@ export const getOneEvent = async (req, res) => {
         const findId = await Event.findById(id);
         if (!findId) {
             return res.status(404).json({
-                status: "404",  
+                status: "404",
                 message: "Event not found",
             });
         }
@@ -98,6 +115,8 @@ export const updateEvent = async (req, res) => {
         });
     }
     try {
+        const { title, description, date_schedule, location, price } = value;
+
         const { id } = req.params;
         const findId = await Event.findById(id);
         if (!findId) {
@@ -112,8 +131,23 @@ export const updateEvent = async (req, res) => {
             req.file,
             req.User._id
         );
-        return res.status(200).json({
-            status: "200",
+
+        // sending email notification to subscribers
+        const eventDetails = {
+            title,
+            description,
+            date_schedule,
+            location,
+            price,
+            image_url: req.file
+        };
+
+        const subscribers = await EventsServices.getSubscribers();
+        subscribers.forEach(subscriber => {
+            notifyUserOfNewEvent(subscriber.email, eventDetails);
+        });
+        return res.status(201).json({
+            status: "201",
             message: "Event updated successfully",
 
         });

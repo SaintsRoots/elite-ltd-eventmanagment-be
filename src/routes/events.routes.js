@@ -6,8 +6,8 @@ import Auth from "../middleware/auth";
 const eventRoute = express.Router();
 eventRoute.get("/", getAllEvents);
 eventRoute.get("/:id", getOneEvent);
-eventRoute.post("/", fileUpload.single("image_url"),Auth, createEvent);
-eventRoute.put("/:id", fileUpload.single("image_url"), Auth , updateEvent);
+eventRoute.post("/", fileUpload.single("image_url"), Auth, createEvent);
+eventRoute.put("/:id", fileUpload.single("image_url"), Auth, updateEvent);
 eventRoute.delete("/:id", deleteEvent);
 
 export default eventRoute;
