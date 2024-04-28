@@ -109,12 +109,6 @@ export const getBookingById = async (req, res) => {
             });
         }
         const booking = await BookingSercive.getBookingById(id);
-        if (!booking) {
-            return res.status(404).json({
-                status: "404",
-                message: "Booking Not Found",
-            });
-        }
         return res.status(200).json({
             status: "200",
             message: "Booking",
@@ -205,12 +199,6 @@ export const deleteBooking = async (req, res) => {
             });
         }
         await BookingSercive.deleteBooking(id);
-        if (!booking) {
-            return res.status(404).json({
-                status: "404",
-                message: "Booking Not Found",
-            });
-        }
         return res.status(200).json({
             status: "200",
             message: "Booking Deleted successfully",
