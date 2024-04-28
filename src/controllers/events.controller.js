@@ -33,8 +33,7 @@ export const createEvent = async (req, res) => {
             description,
             date_schedule,
             location,
-            price,
-            image_url: req.file
+            price
         };
 
         const subscribers = await EventsServices.getSubscribers();
@@ -138,8 +137,7 @@ export const updateEvent = async (req, res) => {
             description,
             date_schedule,
             location,
-            price,
-            image_url: req.file
+            price
         };
 
         const subscribers = await EventsServices.getSubscribers();

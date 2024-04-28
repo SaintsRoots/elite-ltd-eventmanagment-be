@@ -2,6 +2,7 @@ import * as BookingSercive from "../services/booking.services";
 import Event from "../models/events.models";
 import Booking from "../models/bookings.models"
 import { validateCreateBooking, validateUpdateBooking } from "../validations/booking.validation";
+import { sendEmailPersonBookedTickets } from "../utils/emailTemplate";
 
 // create a new booking service
 
@@ -42,7 +43,6 @@ export const createBooking = async (req, res) => {
             req.User._id
         );
 
-        // Update event with the new number of available tickets and push new booking to bookings array
         await Event.findByIdAndUpdate(
             event_id,
             {
@@ -51,6 +51,15 @@ export const createBooking = async (req, res) => {
             },
             { new: true }
         );
+
+        const eventDetails = {
+            title: event.title,
+            total_price: total_price,
+            number_of_tickets: value.number_of_tickets
+        };
+
+        // Sending an email to the user
+        sendEmailPersonBookedTickets(req.User.email, req.User.name, eventDetails);
 
         return res.status(201).json({
             status: "201",
@@ -133,7 +142,6 @@ export const updateBooking = async (req, res) => {
     try {
         const { id } = req.params;
 
-        // Populate event details along with the booking
         const currentBooking = await Booking.findById(id).populate('event_id');
         if (!currentBooking) {
             return res.status(404).json({
@@ -142,16 +150,15 @@ export const updateBooking = async (req, res) => {
             });
         }
 
-        // Calculate the difference in the number of tickets
+
         const ticketDifference = currentBooking.number_of_tickets - value.number_of_tickets;
 
-        // Update the booking with new ticket count and calculate new price
         const updatedBooking = await Booking.findByIdAndUpdate(id, {
             number_of_tickets: value.number_of_tickets,
             total_price: currentBooking.event_id.price * value.number_of_tickets
         }, { new: true });
 
-       
+
         if (ticketDifference > 0) {
             await Event.findByIdAndUpdate(currentBooking.event_id._id, {
                 $inc: { available_tickets: ticketDifference }
