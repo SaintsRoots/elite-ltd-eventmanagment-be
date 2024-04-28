@@ -2,12 +2,12 @@ import Joi from "joi";
 
 // Validation schema for creating an booking
 const createBookingSchema = Joi.object({
-    number_of_tickets: Joi.string().required(),
+    number_of_tickets: Joi.number().required(),
 });
 
 // Validation schema for updating an booking
 const updateBookingSchema = Joi.object({
-    number_of_tickets: Joi.string().required(),
+    number_of_tickets: Joi.number().required(),
 }).or('number_of_tickets');
 
 // Function to validate booking creation
